@@ -10,11 +10,19 @@ jobs:
         run: docker build -t oldschool-demo-image_delwan .
       - name: Test Docker image direkt
         run: |
-          output=$(docker run oldschool-demo-image_delwan)
-          echo "Output: $output"
-          if [[ "$output" != "OldSchool GmbH – automatischer Build erfolgreich!" ]]; then
+          # Container persistent starten
+          docker run -d --name delwan-test oldschool-demo-image_delwan
+          sleep 3  # App starten lassen
+          
+          # Logs anzeigen
+          echo "=== CONTAINER LOGS ==="
+          docker logs delwan-test
+          
+          # Test
+          output=$(docker logs delwan-test)
+          if [[ "$output" != *"OldSchool GmbH"* ]]; then
             echo "Test fehlgeschlagen!"
             exit 1
           fi
-          echo "Test erfolgreich!"
-          docker logs oldschool-demo-image_delwan
+
+
