@@ -8,4 +8,4 @@
 		RUN chmod +x /app.sh
 		
 		# Container startet mit dem Skript
-    CMD ["/app.sh"]
+   	    CMD ["/app.sh"]
