@@ -1,0 +1,19 @@
+name: Delwan_Pipeline
+on: [push]
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Build Docker image
+        run: docker build -t oldschool-demo-image_Delwan .
+      - name: Test Docker image direkt
+        run: |
+          output=$(docker run oldschool-demo-image_Delwan)
+          echo "Output: $output"
+          if [[ "$output" != "OldSchool GmbH – automatischer Build erfolgreich!" ]]; then
+            echo "Test fehlgeschlagen!"
+            exit 1
+          fi
+          echo "Test erfolgreich!"
