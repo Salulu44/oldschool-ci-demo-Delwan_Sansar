@@ -7,10 +7,10 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
       - name: Build Docker image
-        run: docker build -t oldschool-demo-image_Delwan .
+        run: docker build -t oldschool-demo-image_delwan .
       - name: Test Docker image direkt
         run: |
-          output=$(docker run oldschool-demo-image_Delwan)
+          output=$(docker run oldschool-demo-image_delwan)
           echo "Output: $output"
           if [[ "$output" != "OldSchool GmbH – automatischer Build erfolgreich!" ]]; then
             echo "Test fehlgeschlagen!"
